@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { AuthService } from '../shared/auth.service'
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    template: `
+  template: `
         <h3>Please sign up to use all features</h3>
         <form [formGroup]="myForm" (ngSubmit)="onSignin()">
             <div class="form-group">
@@ -18,20 +19,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     `
 })
 export class SigninComponent implements OnInit {
-    myForm: FormGroup;
-    error = false;
-    errorMessage = '';
+  myForm: FormGroup;
+  error = false;
+  errorMessage = '';
 
-    constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
-    onSignin() {
+  onSignin() {
+    this.authService.signinUser(this.myForm.value);
+  }
 
-    }
-
-    ngOnInit():any {
-        this.myForm = this.fb.group({
-            email: ['', Validators.required],
-            password: ['', Validators.required],
-        });
-    }
+  ngOnInit(): any {
+    this.myForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 }

@@ -4,10 +4,13 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+import { routing } from './app.routes';
 import { HeaderComponent } from './shared/header.component';
 import { SigninComponent } from './unprotected/signin.component';
 import { SignupComponent } from './unprotected/signup.component';
 import { ProtectedComponent } from './protected/protected.component';
+import { AuthGuard } from './shared/auth.guard';
+import { AuthService } from './shared/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +24,10 @@ import { ProtectedComponent } from './protected/protected.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    routing
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
